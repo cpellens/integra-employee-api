@@ -1,0 +1,104 @@
+###
+GET http://localhost:8080/api/employees
+
+> {%
+    client.test('Listing employees was successful', () => {
+        client.assert(response.status === 200, 'The response status should be 200');
+        client.assert(response.headers.valueOf('Content-Type').startsWith('application/json'),
+            'The response content type should be application/json');
+
+        const employees = response.body;
+        client.assert(Array.isArray(employees), 'The response body should be an array');
+        client.assert(employees.length === 2, 'The response body should contain two employees');
+    });
+%}
+
+###
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+    "firstName": "Bob",
+    "lastName": "Builder",
+    "email": "bob.builder@example.com"
+}
+
+> {%
+    client.test('Creating a new employee was successful', () => {
+        client.assert(response.status === 201, 'The response status should be 201');
+        client.assert(response.headers.valueOf('Content-Type').startsWith('application/json'),
+            'The response content type should be application/json');
+
+        client.assert('id' in response.body, 'The response body should contain the new employee\'s id');
+        client.assert(Number(response.body.id) === 3, 'The response body should contain the new employee\'s id');
+
+        client.assert('firstName' in response.body, 'The response body should contain the new employee\'s first name');
+        client.assert(response.body.firstName === 'Bob', 'The response body should contain the new employee\'s first name');
+
+        client.assert('lastName' in response.body, 'The response body should contain the new employee\'s last name');
+        client.assert(response.body.lastName === 'Builder', 'The response body should contain the new employee\'s last name');
+
+        client.assert('email' in response.body, 'The response body should contain the new employee\'s email');
+        client.assert(response.body.email === 'bob.builder@example.com', 'The response body should contain the new employee\'s email');
+    });
+%}
+
+###
+GET http://localhost:8080/api/employees/1
+
+> {%
+    client.test('Fetching employee #1 was successful', () => {
+        client.assert(response.status === 200, 'The response status should be 200');
+
+        client.assert('id' in response.body, 'The response body should contain the employee\'s id');
+        client.assert(Number(response.body.id) === 1, 'The response body should contain the employee\'s id');
+
+        client.assert('firstName' in response.body, 'The response body should contain the employee\'s first name');
+        client.assert(response.body.firstName === 'John', 'The response body should contain the employee\'s first name');
+
+        client.assert('lastName' in response.body, 'The response body should contain the employee\'s last name');
+        client.assert(response.body.lastName === 'Doe', 'The response body should contain the employee\'s last name');
+
+        client.assert('email' in response.body, 'The response body should contain the employee\'s email');
+        client.assert(response.body.email === 'john.doe@example.com', 'The response body should contain the employee\'s email');
+    });
+%}
+
+###
+GET http://localhost:8080/api/employees/2
+
+> {%
+    client.test('Fetching employee #1 was successful', () => {
+        client.assert(response.status === 200, 'The response status should be 200');
+
+        client.assert('id' in response.body, 'The response body should contain the employee\'s id');
+        client.assert(Number(response.body.id) === 2, 'The response body should contain the employee\'s id');
+
+        client.assert('firstName' in response.body, 'The response body should contain the employee\'s first name');
+        client.assert(response.body.firstName === 'Jane', 'The response body should contain the employee\'s first name');
+
+        client.assert('lastName' in response.body, 'The response body should contain the employee\'s last name');
+        client.assert(response.body.lastName === 'Doe', 'The response body should contain the employee\'s last name');
+
+        client.assert('email' in response.body, 'The response body should contain the employee\'s email');
+        client.assert(response.body.email === 'jane.doe@example.com', 'The response body should contain the employee\'s email');
+    });
+%}
+
+###
+GET http://localhost:8080/api/employees/3
+
+> {%
+    client.test('Fetching employee #3 fails as expected with a 404', () => {
+        client.assert(response.status === 404, 'The response status should be 404');
+    });
+%}
+
+###
+DELETE http://localhost:8080/api/employees/1
+
+> {%
+    client.test('Deleting employee #1 was successful', () => {
+        client.assert(response.status === 204, 'The response status should be 204');
+    });
+%}

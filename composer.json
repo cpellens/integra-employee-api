@@ -1,0 +1,69 @@
+{
+    "name": "cpellens/integra-employee-api",
+    "type": "project",
+    "description": "Example Laravel-Powered REST API",
+    "keywords": [],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^10.10"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^v1.24.1",
+        "phpunit/phpunit": "^11.5.58"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        },
+        "policy": {
+            "advisories": {
+                "ignore-id": [
+                    "PKSA-yxbx-3c9s-cjt9",
+                    "PKSA-b41t-wbzk-9q51",
+                    "PKSA-d5tc-s1qs-h781",
+                    "PKSA-3r5d-mb8f-1qw9",
+                    "PKSA-m5cs-t1y6-qpcs",
+                    "PKSA-mdq4-51ck-6kdq",
+                    "PKSA-8qx3-n5y5-vvnd",
+                    "PKSA-w7xr-vk7n-rstm"
+                ]
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

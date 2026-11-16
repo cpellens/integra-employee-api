@@ -1,0 +1,10 @@
+services:
+    app:
+        image: integra-employee-api
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        env_file: .env
+        ports:
+            - "8080:8000/tcp"

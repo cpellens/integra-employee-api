@@ -1,0 +1,7 @@
+/.idea/
+
+### Laravel ###
+/vendor/
+
+.env
+.phpunit.result.cache

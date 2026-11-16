@@ -1,0 +1,12 @@
+/vendor/
+/tests/
+/.phpunit.cache
+/.phpunit.result.cache
+/.env
+/.env.example
+/docker-compose.yaml
+/.editorconfig
+/examples.http
+/composer.phar
+/setup-env.php
+/phpunit.xml
